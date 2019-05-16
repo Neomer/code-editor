@@ -45,13 +45,13 @@ bool CodeEditor::on_key_press_event(GdkEventKey *key_event)
     if (!key_event->is_modifier && !is_navigation_key(key_event->keyval))
     {
         auto cursorPosition = get_buffer()->property_cursor_position().get_value();
-        auto it = get_buffer()->get_iter_at_offset(cursorPosition),
+        auto it = get_buffer()->get_iter_at_offset(cursorPosition - 1),
                 endIt = get_buffer()->get_iter_at_offset(cursorPosition);
         while (it != get_buffer()->begin() && is_name_symbol(*it))
         {
             --it;
         }
-        std::string name{ ++it, endIt };
+        std::string name{ it, endIt };
         if (std::find_if(dict_cxx_reserved.begin(), dict_cxx_reserved.end(), [&name](const char *item) { return name == item; }) != dict_cxx_reserved.end())
         {
             get_buffer()->apply_tag(_cxxReservedTag, it, endIt);

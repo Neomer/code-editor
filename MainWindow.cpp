@@ -13,6 +13,7 @@ MainWindow::MainWindow() :
 {
     set_border_width(0);
     set_default_size(800, 600);
+    set_title(_("code-editor v.0.0.1"));
 
     createMainMenu();
     createStatusBar();
